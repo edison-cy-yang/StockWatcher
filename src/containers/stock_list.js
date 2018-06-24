@@ -1,7 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-export default class StockList extends Component {
+class StockList extends Component {
+    renderStock(stockData) {
+        console.log(stockData["Meta Data"]["2. Symbol"]);
+        return (
+            <tr>
+                <td>{stockData["Meta Data"]["2. Symbol"]}</td>
+            </tr>
+        )
+    }
     render() {
         return (
             <table className="table table-hover">
@@ -15,7 +23,7 @@ export default class StockList extends Component {
                 </thead>
             
             <tbody>
-
+                {this.props.stock.map(this.renderStock)}
             </tbody>
             </table>
         );
