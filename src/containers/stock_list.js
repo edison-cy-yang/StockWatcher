@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Sparklines, SparklinesLine, SparklinesReferenceLine } from 'react-sparklines';
 
 class StockList extends Component {
     renderStock(stockData) {
         const name = stockData["Meta Data"]["2. Symbol"];
         console.log(stockData["Time Series (Daily)"]);
-        stock = stockData["Time Series (Daily)"];
-        keys = Object.keys(stock);
+        var stock = stockData["Time Series (Daily)"];
+        var keys = Object.keys(stock);
         const closingPrices = [];
         keys.forEach( key => {
             closingPrices.push(stock[key]["4. close"]);
@@ -15,6 +16,11 @@ class StockList extends Component {
             <tr key={name}>
                 <td>
                     {name}
+                </td>
+                <td>
+                    <Sparklines height={120} width={180} data={closingPrices}>
+                        <SparklinesLine color="red" />
+                    </Sparklines>
                 </td>
             </tr>
         )
