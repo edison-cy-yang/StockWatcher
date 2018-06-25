@@ -4,9 +4,12 @@ import { connect } from 'react-redux';
 class StockList extends Component {
     renderStock(stockData) {
         console.log(stockData["Meta Data"]["2. Symbol"]);
+        const name = stockData["Meta Data"]["2. Symbol"];
         return (
-            <tr>
-                <td>{stockData["Meta Data"]["2. Symbol"]}</td>
+            <tr key={name}>
+                <td>
+                    {name}
+                </td>
             </tr>
         )
     }
