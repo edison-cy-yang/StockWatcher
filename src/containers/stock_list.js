@@ -3,8 +3,14 @@ import { connect } from 'react-redux';
 
 class StockList extends Component {
     renderStock(stockData) {
-        console.log(stockData["Meta Data"]["2. Symbol"]);
         const name = stockData["Meta Data"]["2. Symbol"];
+        console.log(stockData["Time Series (Daily)"]);
+        stock = stockData["Time Series (Daily)"];
+        keys = Object.keys(stock);
+        const closingPrices = [];
+        keys.forEach( key => {
+            closingPrices.push(stock[key]["4. close"]);
+        })
         return (
             <tr key={name}>
                 <td>
