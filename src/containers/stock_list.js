@@ -4,22 +4,50 @@ import { Sparklines, SparklinesLine, SparklinesReferenceLine } from 'react-spark
 
 class StockList extends Component {
     renderStock(stockData) {
-        const name = stockData["Meta Data"]["2. Symbol"];
-        console.log(stockData["Time Series (Daily)"]);
-        var stock = stockData["Time Series (Daily)"];
-        var keys = Object.keys(stock);
-        const closingPrices = [];
-        keys.forEach( key => {
-            closingPrices.push(stock[key]["4. close"]);
-        })
+        const name = stockData[0].data["Meta Data"]["2. Symbol"];
+
+        //process daily data
+        var dailyStock = stockData[0].data["Time Series (Daily)"];
+        var dailyKeys = Object.keys(dailyStock);
+        const dailyClosingPrices = [];
+        dailyKeys.forEach( key => {
+            dailyClosingPrices.push(dailyStock[key]["4. close"]);
+        });
+
+        //process weekly data
+        var weeklyStock = stockData[1].data["Weekly Time Series"];
+        var weeklyKeys = Object.keys(weeklyStock);
+        const weeklyClosingPrices = [];
+        weeklyKeys.forEach( key => {
+            weeklyClosingPrices.push(weeklyStock[key]["4. close"]);
+        });
+
+        //process monthly data
+        var monthlyStock = stockData[2].data["Monthly Time Series"];
+        var monthlyKeys = Object.keys(monthlyStock);
+        const monthlyClosingPrices = [];
+        monthlyKeys.forEach( key => {
+            monthlyClosingPrices.push(monthlyStock[key]["4. close"]);
+        });
+    
         return (
             <tr key={name}>
                 <td>
                     {name}
                 </td>
                 <td>
-                    <Sparklines height={120} width={180} data={closingPrices}>
+                    <Sparklines height={120} width={180} data={dailyClosingPrices}>
                         <SparklinesLine color="red" />
+                    </Sparklines>
+                </td>
+                <td>
+                    <Sparklines height={120} width={180} data={weeklyClosingPrices}>
+                        <SparklinesLine color="blue" />
+                    </Sparklines>
+                </td>
+                <td>
+                    <Sparklines height={120} width={180} data={monthlyClosingPrices}>
+                        <SparklinesLine color="green" />
                     </Sparklines>
                 </td>
             </tr>

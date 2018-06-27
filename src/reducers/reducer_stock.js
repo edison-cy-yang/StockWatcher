@@ -3,7 +3,7 @@ import { FETCH_STOCK } from '../actions/index';
 export default function(state=[], action) {
     switch(action.type) {
         case FETCH_STOCK:
-            console.log(action.payload.data["Time Series (Daily)"]);
+            // console.log(action.payload.data);
             ///return [ action.payload.data, ...state]
             // dataArray = [];
             // stock = action.payload.data["Time Series (Daily)"];
@@ -11,7 +11,7 @@ export default function(state=[], action) {
             // keys.forEach(key => {
             //     dataArray.push(stock[key]);
             // });
-            return state.concat([action.payload.data]);
+            return state.concat([action.payload]);
     }
     return state;
 }

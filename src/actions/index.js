@@ -12,12 +12,17 @@ export const FETCH_STOCK = 'FETCH_STOCK';
 
 export function fetchStock(stock) {
     const url = `${ROOT_URL}&symbol=${stock}&function=${DAILY}`;
-    const request = axios.get(url);
+    const weeklyUrl = `${ROOT_URL}&symbol=${stock}&function=${WEEKLY}`;
+    const monthlyUrl = `${ROOT_URL}&symbol=${stock}&function=${MONTHLY}`;
 
-    console.log('Request: ', request);
+    const request = axios.get(url);
+    const weeklyRequest = axios.get(weeklyUrl);
+    const monthlyRequest = axios.get(monthlyUrl);
+
+    const promise = Promise.all([request, weeklyRequest, monthlyRequest]);
 
     return {
         type: FETCH_STOCK,
-        payload: request
+        payload: promise
     };
 }
