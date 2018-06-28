@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Sparklines, SparklinesLine, SparklinesReferenceLine } from 'react-sparklines';
+import Chart from '../components/Chart';
+
 
 class StockList extends Component {
     renderStock(stockData) {
@@ -36,19 +37,13 @@ class StockList extends Component {
                     {name}
                 </td>
                 <td>
-                    <Sparklines height={120} width={180} data={dailyClosingPrices}>
-                        <SparklinesLine color="red" />
-                    </Sparklines>
+                    <Chart data={dailyClosingPrices} color="red" />
                 </td>
                 <td>
-                    <Sparklines height={120} width={180} data={weeklyClosingPrices}>
-                        <SparklinesLine color="blue" />
-                    </Sparklines>
+                    <Chart data={weeklyClosingPrices} color="blue" />
                 </td>
                 <td>
-                    <Sparklines height={120} width={180} data={monthlyClosingPrices}>
-                        <SparklinesLine color="green" />
-                    </Sparklines>
+                    <Chart data={monthlyClosingPrices} color="green" />
                 </td>
             </tr>
         )
