@@ -6,6 +6,7 @@ export default (props) => {
         <div>
             <Sparklines height={120} width={180} data={props.data}>
                 <SparklinesLine color={props.color} />
+                <SparklinesReferenceLine type="avg" />
             </Sparklines>
         </div>
     )
