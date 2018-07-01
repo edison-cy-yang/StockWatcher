@@ -8,6 +8,9 @@ const MONTHLY = 'TIME_SERIES_MONTHLY';
 
 const ROOT_URL = `https://www.alphavantage.co/query?apikey=${API_KEY}`;
 
+//TODO: switch API to IEX
+const ROOT_URL = 'https://api.iextrading.com/1.0/stock/';
+
 export const FETCH_STOCK = 'FETCH_STOCK';
 
 export function fetchStock(stock) {
