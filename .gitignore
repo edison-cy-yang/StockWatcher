@@ -1,9 +1,1 @@
-/client/node_modules
-bundle.js
-npm-debug.log
-.DS_Store
-API_KEYS.js
-
-# IntelliJ
-*.iml
-/.idea
+/node_modules
