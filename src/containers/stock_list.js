@@ -5,45 +5,32 @@ import Chart from '../components/Chart';
 
 class StockList extends Component {
     renderStock(stockData) {
-        const name = stockData[0].data["Meta Data"]["2. Symbol"];
+        const companyInfo = stockData[0].data;
+        const symbol = companyInfo.symbol;
 
-        //process daily data
-        var dailyStock = stockData[0].data["Time Series (Daily)"];
-        var dailyKeys = Object.keys(dailyStock);
-        const dailyClosingPrices = [];
-        dailyKeys.forEach( key => {
-            dailyClosingPrices.push(dailyStock[key]["4. close"]);
-        });
+        const dailyStock = stockData[1].data;
+        const dailyClosingPrices = dailyStock.map(price => price.marketAverage);
+        console.log(dailyClosingPrices);
 
-        //process weekly data
-        var weeklyStock = stockData[1].data["Weekly Time Series"];
-        var weeklyKeys = Object.keys(weeklyStock);
-        const weeklyClosingPrices = [];
-        weeklyKeys.forEach( key => {
-            weeklyClosingPrices.push(weeklyStock[key]["4. close"]);
-        });
+        const monthlyStock = stockData[2].data;
+        const monthlyClosingPrices = monthlyStock.map(price => price.close);
 
-        //process monthly data
-        var monthlyStock = stockData[2].data["Monthly Time Series"];
-        var monthlyKeys = Object.keys(monthlyStock);
-        const monthlyClosingPrices = [];
-        monthlyKeys.forEach( key => {
-            monthlyClosingPrices.push(monthlyStock[key]["4. close"]);
-        });
-    
+        const yearlyStock = stockData[3].data;
+        const yearlyClosingPrices = monthlyStock.map(price => price.close);
+
         return (
-            <tr key={name}>
+            <tr key={symbol}>
                 <td>
-                    {name}
+                    {symbol}
                 </td>
                 <td>
                     <Chart data={dailyClosingPrices} color="red" />
                 </td>
                 <td>
-                    <Chart data={weeklyClosingPrices} color="blue" />
+                    <Chart data={monthlyClosingPrices} color="blue" />
                 </td>
                 <td>
-                    <Chart data={monthlyClosingPrices} color="green" />
+                    <Chart data={yearlyClosingPrices} color="green" />
                 </td>
             </tr>
         )
@@ -55,8 +42,8 @@ class StockList extends Component {
                     <tr>
                         <th>Stock</th>
                         <th>Daily</th>
-                        <th>Weekly</th>
-                        <th>Monthly</th>    
+                        <th>Monthly</th>
+                        <th>Yearly</th>    
                     </tr>
                 </thead>
             

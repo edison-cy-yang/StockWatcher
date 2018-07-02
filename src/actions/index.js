@@ -1,28 +1,27 @@
 import axios from 'axios';
 
-const API_KEY = "UGXPUCUDFIHWVTF0";
+const ROOT_URL = 'https://api.iextrading.com/1.0/';
+const STOCK = 'stock';
+const DAILY = '1d';
+const MONTHLY = '1m';
+const YEARLY = '1y';
 
-const DAILY = 'TIME_SERIES_DAILY';
-const WEEKLY = "TIME_SERIES_WEEKLY";
-const MONTHLY = 'TIME_SERIES_MONTHLY';
-
-const ROOT_URL = `https://www.alphavantage.co/query?apikey=${API_KEY}`;
-
-//TODO: switch API to IEX
-const ROOT_URL = 'https://api.iextrading.com/1.0/stock/';
+const CHART = 'chart';
 
 export const FETCH_STOCK = 'FETCH_STOCK';
 
-export function fetchStock(stock) {
-    const url = `${ROOT_URL}&symbol=${stock}&function=${DAILY}`;
-    const weeklyUrl = `${ROOT_URL}&symbol=${stock}&function=${WEEKLY}`;
-    const monthlyUrl = `${ROOT_URL}&symbol=${stock}&function=${MONTHLY}`;
+export function fetchStock(symbol) {
+    const dailyUrl = `${ROOT_URL}${STOCK}/${symbol}/${CHART}/${DAILY}`;
+    const monthlyUrl = `${ROOT_URL}${STOCK}/${symbol}/${CHART}/${MONTHLY}`;
+    const yearlyUrl = `${ROOT_URL}${STOCK}/${symbol}/${CHART}/${YEARLY}`;
+    const companyUrl = `${ROOT_URL}${STOCK}/${symbol}/company`;
 
-    const request = axios.get(url);
-    const weeklyRequest = axios.get(weeklyUrl);
+    const dailyRequest = axios.get(dailyUrl);
     const monthlyRequest = axios.get(monthlyUrl);
+    const yearlyRequest = axios.get(yearlyUrl);
+    const companyRequest = axios.get(companyUrl);
 
-    const promise = Promise.all([request, weeklyRequest, monthlyRequest]);
+    const promise = Promise.all([companyRequest, dailyRequest, monthlyRequest, yearlyRequest]);
 
     return {
         type: FETCH_STOCK,
