@@ -36,6 +36,9 @@ class StockList extends Component {
         )
     }
     render() {
+        if(this.props.stock.length == 0) {
+            return <div> No stocks yet.. </div>;
+        }
         return (
             <table className="table table-hover">
                 <thead>
