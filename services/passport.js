@@ -6,6 +6,17 @@ const mongoose = require('mongoose');
 //Get reference to the user model in mongoose
 const User = mongoose.model('users');
 
+passport.serializeUser((user, done) => {
+    //use the mongo user model id to generate token
+    done(null, user.id);
+});
+
+//deserialize id into mongoose instance
+    User.findById(id).then(user => {
+        done(null, user);
+    });
+});
+
 //set up passport with google API ID
 passport.use(
     new GoogleStrategy({
