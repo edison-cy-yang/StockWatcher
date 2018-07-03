@@ -12,6 +12,7 @@ passport.serializeUser((user, done) => {
 });
 
 //deserialize id into mongoose instance
+passport.deserializeUser((id, done) => {
     User.findById(id).then(user => {
         done(null, user);
     });
