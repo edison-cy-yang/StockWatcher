@@ -21,7 +21,7 @@ passport.deserializeUser((id, done) => {
 //set up passport with google API ID
 passport.use(
     new GoogleStrategy({
-        clientID: keys.googleCLientID,
+        clientID: keys.googleClientID,
         clientSecret: keys.googleClientSecret,
         callbackURL: '/auth/google/callback'
         },
