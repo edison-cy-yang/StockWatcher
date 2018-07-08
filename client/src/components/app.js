@@ -12,6 +12,8 @@ export default class App extends Component {
         <BrowserRouter>
           <div>
             <LandingPage />
+            <SearchBar />
+            <StockList />
           </div>
         </BrowserRouter>
       </div>
