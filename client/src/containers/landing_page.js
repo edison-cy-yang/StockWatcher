@@ -4,8 +4,7 @@ class LandingPage extends Component {
     render() {
         return (
             <div>
-            <h1> Stock Watcher </h1>
-            <a href="/auth/google"> Sign in with Google </a>
+                <h1> Stock Watcher </h1>
             </div>
         )
     }
