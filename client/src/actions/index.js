@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FETCH_USER } from './types';
+import { FETCH_USER, FETCH_STOCK } from './types';
 
 const ROOT_URL = 'https://api.iextrading.com/1.0/';
 const STOCK = 'stock';
@@ -8,8 +8,6 @@ const MONTHLY = '1m';
 const YEARLY = '1y';
 
 const CHART = 'chart';
-
-export const FETCH_STOCK = 'FETCH_STOCK';
 
 export const fetchStock = (symbol) => {
     const dailyUrl = `${ROOT_URL}${STOCK}/${symbol}/${CHART}/${DAILY}`;
