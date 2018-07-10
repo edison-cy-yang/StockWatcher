@@ -5,17 +5,17 @@ import Chart from '../components/Chart';
 
 class StockList extends Component {
     renderStock(stockData) {
-        const companyInfo = stockData[0].data;
+        const companyInfo = stockData[0];
         const symbol = companyInfo.symbol;
 
-        const dailyStock = stockData[1].data;
+        const dailyStock = stockData[1];
         const dailyClosingPrices = dailyStock.map(price => price.marketAverage);
         console.log(dailyClosingPrices);
 
-        const monthlyStock = stockData[2].data;
+        const monthlyStock = stockData[2];
         const monthlyClosingPrices = monthlyStock.map(price => price.close);
 
-        const yearlyStock = stockData[3].data;
+        const yearlyStock = stockData[3];
         const yearlyClosingPrices = monthlyStock.map(price => price.close);
 
         return (

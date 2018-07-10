@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FETCH_USER } from './types';
+import { FETCH_USER, FETCH_STOCK } from './types';
 
 const ROOT_URL = 'https://api.iextrading.com/1.0/';
 const STOCK = 'stock';
@@ -9,24 +9,12 @@ const YEARLY = '1y';
 
 const CHART = 'chart';
 
-export const FETCH_STOCK = 'FETCH_STOCK';
-
-export const fetchStock = (symbol) => {
-    const dailyUrl = `${ROOT_URL}${STOCK}/${symbol}/${CHART}/${DAILY}`;
-    const monthlyUrl = `${ROOT_URL}${STOCK}/${symbol}/${CHART}/${MONTHLY}`;
-    const yearlyUrl = `${ROOT_URL}${STOCK}/${symbol}/${CHART}/${YEARLY}`;
-    const companyUrl = `${ROOT_URL}${STOCK}/${symbol}/company`;
-
-    const dailyRequest = axios.get(dailyUrl);
-    const monthlyRequest = axios.get(monthlyUrl);
-    const yearlyRequest = axios.get(yearlyUrl);
-    const companyRequest = axios.get(companyUrl);
-
-    const promise = Promise.all([companyRequest, dailyRequest, monthlyRequest, yearlyRequest]);
+export const fetchStock = async (symbol) => {
+    const res = await axios.post('/api/newstock', {symbol});
 
     return {
         type: FETCH_STOCK,
-        payload: promise
+        payload: res.data
     };
 }
 
