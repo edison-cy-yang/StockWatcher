@@ -9,7 +9,10 @@ const YEARLY = '1y';
 
 const CHART = 'chart';
 
-export const fetchStock = (symbol) => {
+export const fetchStock = async (symbol) => {
+    const res = await axios.post('/api/newstock', {symbol});
+    console.log("res: " + res);
+
     const dailyUrl = `${ROOT_URL}${STOCK}/${symbol}/${CHART}/${DAILY}`;
     const monthlyUrl = `${ROOT_URL}${STOCK}/${symbol}/${CHART}/${MONTHLY}`;
     const yearlyUrl = `${ROOT_URL}${STOCK}/${symbol}/${CHART}/${YEARLY}`;
@@ -21,11 +24,13 @@ export const fetchStock = (symbol) => {
     const companyRequest = axios.get(companyUrl);
 
     const promise = Promise.all([companyRequest, dailyRequest, monthlyRequest, yearlyRequest]);
+    
 
     return {
         type: FETCH_STOCK,
         payload: promise
     };
+    //dispatch({type: FETCH_STOCK, payload: res.data});
 }
 
 export const fetchUser = () => async dispatch => {
