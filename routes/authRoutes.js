@@ -31,35 +31,31 @@ module.exports = (app) => {
 
     app.post('/api/newstock', async (req, res) => {
         console.log("req: ", req.body.symbol);
-        // const ROOT_URL = 'https://api.iextrading.com/1.0/';
-        // const STOCK = 'stock';
-        // const DAILY = '1d';
-        // const MONTHLY = '1m';
-        // const YEARLY = '1y';
+        const ROOT_URL = 'https://api.iextrading.com/1.0/';
+        const STOCK = 'stock';
+        const DAILY = '1d';
+        const MONTHLY = '1m';
+        const YEARLY = '1y';
 
-        // const CHART = 'chart';
+        const CHART = 'chart';
 
-        // const symbol = req.body.symbol;
-        // const dailyUrl = `${ROOT_URL}${STOCK}/${symbol}/${CHART}/${DAILY}`;
-        // const monthlyUrl = `${ROOT_URL}${STOCK}/${symbol}/${CHART}/${MONTHLY}`;
-        // const yearlyUrl = `${ROOT_URL}${STOCK}/${symbol}/${CHART}/${YEARLY}`;
-        // const companyUrl = `${ROOT_URL}${STOCK}/${symbol}/company`;
+        const symbol = req.body.symbol;
+        const dailyUrl = `${ROOT_URL}${STOCK}/${symbol}/${CHART}/${DAILY}`;
+        const monthlyUrl = `${ROOT_URL}${STOCK}/${symbol}/${CHART}/${MONTHLY}`;
+        const yearlyUrl = `${ROOT_URL}${STOCK}/${symbol}/${CHART}/${YEARLY}`;
+        const companyUrl = `${ROOT_URL}${STOCK}/${symbol}/company`;
 
-        // const dailyRequest = await axios.get(dailyUrl);
-        // const monthlyRequest = await axios.get(monthlyUrl);
-        // const yearlyRequest = await axios.get(yearlyUrl);
-        // const companyRequest = await axios.get(companyUrl);
+        const dailyRequest = await axios.get(dailyUrl);
+        const monthlyRequest = await axios.get(monthlyUrl);
+        const yearlyRequest = await axios.get(yearlyUrl);
+        const companyRequest = await axios.get(companyUrl);
 
-        // console.log("dailyRequest: ", dailyRequest);
-        // console.log("monthlyRequest: ", monthlyRequest);
-        // console.log("yearlyRequest: ", yearlyRequest);
+        const stockInfo = [companyRequest.data, dailyRequest.data, monthlyRequest.data, yearlyRequest.data];
+        
+        res.send(stockInfo);
 
-        //const stockInfo = Objects.assign(companyRequest, dailyRequest, monthlyRequest, yearlyRequest);
-
-        //console.log(stockInfo);
-        res.send("success");
-
-        req.user.stocks.push(req.body.symbol);
-        req.user.save();
+        /// Todo: uncomment this when we are fetching stock list from mongo user model
+        // req.user.stocks.push(req.body.symbol);
+        // req.user.save();
     })
 };

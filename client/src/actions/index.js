@@ -11,26 +11,11 @@ const CHART = 'chart';
 
 export const fetchStock = async (symbol) => {
     const res = await axios.post('/api/newstock', {symbol});
-    console.log("res: " + res);
-
-    const dailyUrl = `${ROOT_URL}${STOCK}/${symbol}/${CHART}/${DAILY}`;
-    const monthlyUrl = `${ROOT_URL}${STOCK}/${symbol}/${CHART}/${MONTHLY}`;
-    const yearlyUrl = `${ROOT_URL}${STOCK}/${symbol}/${CHART}/${YEARLY}`;
-    const companyUrl = `${ROOT_URL}${STOCK}/${symbol}/company`;
-
-    const dailyRequest = axios.get(dailyUrl);
-    const monthlyRequest = axios.get(monthlyUrl);
-    const yearlyRequest = axios.get(yearlyUrl);
-    const companyRequest = axios.get(companyUrl);
-
-    const promise = Promise.all([companyRequest, dailyRequest, monthlyRequest, yearlyRequest]);
-    
 
     return {
         type: FETCH_STOCK,
-        payload: promise
+        payload: res.data
     };
-    //dispatch({type: FETCH_STOCK, payload: res.data});
 }
 
 export const fetchUser = () => async dispatch => {
