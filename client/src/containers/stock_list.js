@@ -58,8 +58,9 @@ class StockList extends Component {
     }
 }
 
-function mapStateToProps({ stock }) {
-    return { stock };
+function mapStateToProps(state) {
+    return { stock: state.stock,
+             auth: state.auth };
 }
 
 export default connect(mapStateToProps)(StockList);

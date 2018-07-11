@@ -14,6 +14,12 @@ class Header extends Component {
                 return <li><a href="/api/logout">Logout</a></li>;
         }
     }
+
+    renderName() {
+        if(this.props.auth != null) {
+            return <li>{this.props.auth.firstName} {this.props.auth.lastName}</li>
+        }
+    }
     render() {
         return(
           <nav>
@@ -22,6 +28,7 @@ class Header extends Component {
                     Stock Watcher
                 </a>
                 <ul className="right">
+                    {this.renderName()}
                     {this.renderContent()}
                 </ul>
             </div>
