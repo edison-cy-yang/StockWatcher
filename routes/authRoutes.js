@@ -55,7 +55,33 @@ module.exports = (app) => {
         res.send(stockInfo);
 
         /// Todo: uncomment this when we are fetching stock list from mongo user model
-        // req.user.stocks.push(req.body.symbol);
-        // req.user.save();
+        req.user.stocks.push(req.body.symbol);
+        req.user.save();
+    })
+
+    app.post('/api/fetchStock', async (req, res) => {
+        console.log("req: ", req.body.symbol);
+        const ROOT_URL = 'https://api.iextrading.com/1.0/';
+        const STOCK = 'stock';
+        const DAILY = '1d';
+        const MONTHLY = '1m';
+        const YEARLY = '1y';
+
+        const CHART = 'chart';
+
+        const symbol = req.body.symbol;
+        const dailyUrl = `${ROOT_URL}${STOCK}/${symbol}/${CHART}/${DAILY}`;
+        const monthlyUrl = `${ROOT_URL}${STOCK}/${symbol}/${CHART}/${MONTHLY}`;
+        const yearlyUrl = `${ROOT_URL}${STOCK}/${symbol}/${CHART}/${YEARLY}`;
+        const companyUrl = `${ROOT_URL}${STOCK}/${symbol}/company`;
+
+        const dailyRequest = await axios.get(dailyUrl);
+        const monthlyRequest = await axios.get(monthlyUrl);
+        const yearlyRequest = await axios.get(yearlyUrl);
+        const companyRequest = await axios.get(companyUrl);
+
+        const stockInfo = [companyRequest.data, dailyRequest.data, monthlyRequest.data, yearlyRequest.data];
+        
+        res.send(stockInfo);
     })
 };
